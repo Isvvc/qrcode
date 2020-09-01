@@ -7,7 +7,7 @@ import os
 def main():
     import argparse
     argparser = argparse.ArgumentParser()
-    argparser.add_argument('Words', help = 'The words to produce you QR-code picture, like a URL or a sentence. Please read the README file for the supported characters.')
+    argparser.add_argument('Words', help = 'A file containing the words to produce you QR-code picture, like a URL or a sentence. Please read the README file for the supported characters.', type=argparse.FileType('r'))
     argparser.add_argument('-v', '--version', type = int, choices = range(1,41), default = 1, help = 'The version means the length of a side of the QR-Code picture. From little size to large is 1 to 40.')
     argparser.add_argument('-l', '--level', choices = list('LMQH'), default = 'H', help = 'Use this argument to choose an Error-Correction-Level: L(Low), M(Medium) or Q(Quartile), H(High). Otherwise, just use the default one: H')
     argparser.add_argument('-p', '--picture', help = 'the picture  e.g. example.jpg')
@@ -23,7 +23,7 @@ def main():
     
     try:
         ver, ecl, qr_name = run(
-            args.Words,
+            args.Words.readline().rstrip(),
             args.version,
             args.level,
             args.picture,

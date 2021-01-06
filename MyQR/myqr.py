@@ -84,7 +84,7 @@ def run(words, version=1, level='H', picture=None, colorized=False, contrast=1.0
                     qr.putpixel((i+12,j+12), bg.getpixel((i,j)))
         
         qr_name = os.path.join(save_dir, os.path.splitext(os.path.basename(bg_name))[0] + '_qrcode.png') if not save_name else os.path.join(save_dir, save_name)
-        qr.resize((qr.size[0]*3, qr.size[1]*3)).save(qr_name)
+        qr.resize((qr.size[0]*3, qr.size[1]*3), resample=Image.NEAREST).save(qr_name)
         return qr_name
 
     tempdir = os.path.join(os.path.expanduser('~'), '.myqr')

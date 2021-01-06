@@ -60,9 +60,11 @@ def run(words, version=1, level='H', picture=None, colorized=False, contrast=1.0
         bg0 = ImageEnhance.Brightness(bg0).enhance(brightness)
 
         if bg0.size[0] < bg0.size[1]:
-            bg0 = bg0.resize((qr.size[0]-24, (qr.size[0]-24)*int(bg0.size[1]/bg0.size[0])))
+            bg0 = bg0.resize((qr.size[0]-24, (qr.size[0]-24)*int(bg0.size[1]/bg0.size[0])),
+                box=(0, (bg0.size[1] - bg0.size[0]) // 2, bg0.size[0], (bg0.size[1] + bg0.size[0]) // 2))
         else:
-            bg0 = bg0.resize(((qr.size[1]-24)*int(bg0.size[0]/bg0.size[1]), qr.size[1]-24))    
+            bg0 = bg0.resize(((qr.size[1]-24)*int(bg0.size[0]/bg0.size[1]), qr.size[1]-24),
+                box=((bg0.size[0] - bg0.size[1]) // 2, 0, (bg0.size[0] + bg0.size[1]) // 2, bg0.size[1]))
             
         bg = bg0 if colorized else bg0.convert('1')
         
